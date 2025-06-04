@@ -5,7 +5,7 @@ import joblib
 import os
 
 # Load model
-model = tf.keras.models.load_model("models/model.h5")
+model = tf.keras.models.load_model("models/model.h5", compile=False)
 
 # Load scalers
 scalers = {}
