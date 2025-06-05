@@ -4,9 +4,6 @@ import pandas as pd
 import joblib
 import os
 
-# Load model
-model = tf.keras.models.load_model("models/model.h5", compile=False)
-
 # Load scalers
 scalers = {}
 scaler_dir = "scalers"
