@@ -1,3 +1,4 @@
+---
 title: Fincoach Stocks Predictors
 emoji: 🐠
 colorFrom: gray
@@ -6,3 +7,6 @@ sdk: docker
 app_file: app.py
 pinned: false
 short_description: This space has 10 models for 10 Indonesian emitens' stock
+---
+
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
