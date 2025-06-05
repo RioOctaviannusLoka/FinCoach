@@ -9,7 +9,7 @@ model = tf.keras.models.load_model("models/model.h5", compile=False)
 
 # Load scalers
 scalers = {}
-scaler_dir = "models/scalers"
+scaler_dir = "scalers"
 for fname in os.listdir(scaler_dir):
     if fname.endswith(".pkl"):
         symbol = fname.replace("_scaler.pkl", "")
@@ -18,12 +18,21 @@ for fname in os.listdir(scaler_dir):
 # Load stock data
 df_all = pd.read_csv("stocks.csv", index_col=0, parse_dates=True)
 
-def make_prediction(symbol: str, window_size=30):
+def make_prediction(symbol: str, window_size=365):
+    symbol = symbol.lower()
+
     if symbol not in df_all.columns:
         raise ValueError(f"{symbol} not found in dataset.")
     
     if symbol not in scalers:
         raise ValueError(f"No scaler found for {symbol}")
+
+    # Load model specific to the symbol
+    model_path = f"models/model_{symbol}.h5"
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model file not found for {symbol}: {model_path}")
+    
+    model = tf.keras.models.load_model(model_path, compile=False)
 
     series = df_all[symbol].dropna().values
     if len(series) < window_size:
